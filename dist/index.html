@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Vue Recursive Component Example</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="vue-app">
+    <root v-bind:folder="root"></root>
+</div>
+
+<script type="text/x-template" id="folders-component">
+    <template>
+        <ul class="folders">
+            <li>Folders</li>
+            <folder v-bind:folder="folder"></folder>
+        </ul>
+    </template>
+</script>
+                                  
+<script type="text/x-template" id="folder-component">
+    <template>
+    <li class="folder" v-bind:class="[folder.leaf ? 'is-leaf' : 'is-folder']">
+        <span v-on:click="expand()">{{ folder.text }}</span>
+
+        <ul class="sub-folders" v-if="folder.children && folder.children.length > 0" v-show="folder.expanded">
+        <folder v-for="child in folder.children" v-bind:folder="child"></folder>
+        </ul>
+        <div class="folder-empty" v-else v-show="!folder.leaf && folder.expanded">No Data</div>
+    </li>
+    </template>
+</script>
+
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
